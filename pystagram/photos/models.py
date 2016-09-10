@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Post(models.Model): #장고 모델은 클래스에서 모델클래스를 상속받으면 모델이됨
     content = models.TextField(max_length = 500) # 255자 넘는 경우 TextField 씀
-    tags = models.ManyToManyField('Tag')
+    tags = models.ManyToManyField('Tag', blank = True)
     # 게시물에 tag를 다는거니깐! Many to many는 그냥 생각흐름대로.
     # Tag를 문자열로 넣어야 에러안남 - 왜냐면 Tag Class는 아래 선언되어있어서 현 시점에서는 모름(name error)
 
