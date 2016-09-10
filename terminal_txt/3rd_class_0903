@@ -1,0 +1,1124 @@
+Last login: Sat Sep  3 13:42:54 on ttys001
+ShinSungWookui-MacBook-Pro:~ SungWook$ ls
+AndroidStudioProjects			dev
+Applications				exec -l 
+Desktop					finaltest
+Documents				fullstack
+Downloads				gold-spoon
+FreeMind_1.0.1.dmg			guestbook
+Library					guestbook-1
+Movies					helloworld
+Music					jrsw807
+Pictures				others
+Public					sh
+SungWook Shin_coverletter_hpcnt.pdf	templates
+Test					udacity
+VirtualBox VMs
+ShinSungWookui-MacBook-Pro:~ SungWook$ cd sh
+ShinSungWookui-MacBook-Pro:sh SungWook$ ls
+helloworld	hwenv		pystagram	tutorial
+ShinSungWookui-MacBook-Pro:sh SungWook$ source hwenv/bin/activate
+(hwenv) ShinSungWookui-MacBook-Pro:sh SungWook$ ls
+helloworld	hwenv		pystagram	tutorial
+(hwenv) ShinSungWookui-MacBook-Pro:sh SungWook$ ls
+helloworld	hwenv		pystagram	tutorial
+(hwenv) ShinSungWookui-MacBook-Pro:sh SungWook$ cd pystagram
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ls
+manage.py	pystagram
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ls
+manage.py	pystagram
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  Rendering model states... DONE
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying sessions.0001_initial... OK
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ls
+db.sqlite3	manage.py	pystagram
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py startapp photos
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ls
+db.sqlite3	manage.py	photos		pystagram
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ cd photos
+(hwenv) ShinSungWookui-MacBook-Pro:photos SungWook$ ls
+__init__.py	admin.py	apps.py		migrations	models.py	tests.py	views.py
+(hwenv) ShinSungWookui-MacBook-Pro:photos SungWook$ ./manage.py makemigrations photos
+-bash: ./manage.py: No such file or directory
+(hwenv) ShinSungWookui-MacBook-Pro:photos SungWook$ ./manage.py makemigrations photos
+-bash: ./manage.py: No such file or directory
+(hwenv) ShinSungWookui-MacBook-Pro:photos SungWook$ cd..
+-bash: cd..: command not found
+(hwenv) ShinSungWookui-MacBook-Pro:photos SungWook$ ./manage.py makemigrations photos
+-bash: ./manage.py: No such file or directory
+(hwenv) ShinSungWookui-MacBook-Pro:photos SungWook$ cd ..
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py makemigrations photos
+Migrations for 'photos':
+  photos/migrations/0001_initial.py:
+    - Create model Post
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py migrate photos
+Operations to perform:
+  Apply all migrations: photos
+Running migrations:
+  Rendering model states... DONE
+  Applying photos.0001_initial... OK
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ sqlite3 db.sqlite3
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+sqlite> .tables
+auth_group                  django_admin_log          
+auth_group_permissions      django_content_type       
+auth_permission             django_migrations         
+auth_user                   django_session            
+auth_user_groups            photos_post               
+auth_user_user_permissions
+sqlite> .schema photos_post
+CREATE TABLE "photos_post" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
+sqlite> .exit
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ python manage.py shell
+Python 3.5.2 (default, Aug 16 2016, 05:35:50) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from photos.modelss import Post
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+ImportError: No module named 'photos.modelss'
+>>> from photos.models import Post
+>>> Post.objects.all()
+<QuerySet []>
+>>> 
+>>> p1 = Post()
+>>> p1.save()
+>>> p1.id
+1
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>> p1.created_at
+datetime.datetime(2016, 9, 3, 5, 45, 22, 542865, tzinfo=<UTC>)
+>>> p1.updated_at
+datetime.datetime(2016, 9, 3, 5, 45, 22, 543220, tzinfo=<UTC>)
+>>> Post.objects.all
+<bound method BaseManager.all of <django.db.models.manager.Manager object at 0x10e375470>>
+>>> Post.objects.all()
+<QuerySet [<Post: Post object>]>
+>>> p1
+<Post: Post object>
+>>> 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py makemigrations photos
+You are trying to add a non-nullable field 'content' to post without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 1
+Please enter the default value now, as valid Python
+The datetime and django.utils.timezone modules are available, so you can do e.g. timezone.now
+Type 'exit' to exit this prompt
+>>> ''
+Migrations for 'photos':
+  photos/migrations/0002_post_content.py:
+    - Add field content to post
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py migrate photos
+Operations to perform:
+  Apply all migrations: photos
+Running migrations:
+  Rendering model states... DONE
+  Applying photos.0002_post_content... OK
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ sqlite3 db.sqlite3
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+sqlite> .schema photos_post
+CREATE TABLE "photos_post" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "content" text NOT NULL);
+sqlite> .exit
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ python manage.py shell
+Python 3.5.2 (default, Aug 16 2016, 05:35:50) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from photos.models import Post
+>>> Post.objects.all()
+<QuerySet [<Post: Post object>]>
+>>> Post.objects.all()[0]
+<Post: Post object>
+>>> p1 = Post.objects.all()[0]
+>>> p1
+<Post: Post object>
+>>> p1.id
+1
+>>> p1.content
+''
+>>> 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py makemigrations photos
+No changes detected in app 'photos'
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ python
+Python 3.5.2 (default, Aug 16 2016, 05:35:50) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import uuid
+>>> uuid.uuid4()
+UUID('576a1cfa-4226-49e3-9ad1-f5b2795f4134')
+>>> a = _
+>>> a
+UUID('576a1cfa-4226-49e3-9ad1-f5b2795f4134')
+>>> a = _hex
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name '_hex' is not defined
+>>> a = hex(_)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'UUID' object cannot be interpreted as an integer
+>>> a.hex
+'576a1cfa422649e39ad1f5b2795f4134'
+>>> a
+UUID('576a1cfa-4226-49e3-9ad1-f5b2795f4134')
+>>> a.hex
+'576a1cfa422649e39ad1f5b2795f4134'
+>>> uuid.uuid3()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: uuid3() missing 2 required positional arguments: 'namespace' and 'name'
+>>> uuid.uuid2()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: module 'uuid' has no attribute 'uuid2'
+>>> uuid.uuid1()
+UUID('e85b486c-71a0-11e6-ae5c-a0999b0ee73f')
+>>> uuid.uuid4()
+UUID('bd0f6201-10f3-48a7-aa4d-cbcce661c604')
+>>> 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ python manage.py shell
+Python 3.5.2 (default, Aug 16 2016, 05:35:50) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> 
+>>> 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py createsuperuser
+Username (leave blank to use 'sungwook'): chicee
+Email address: 
+Password: 
+Password (again): 
+Superuser created successfully.
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py runserver
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 03, 2016 - 07:04:06
+Django version 1.10, using settings 'pystagram.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+[03/Sep/2016 07:04:20] "GET / HTTP/1.1" 200 1767
+Not Found: /favicon.ico
+[03/Sep/2016 07:04:21] "GET /favicon.ico HTTP/1.1" 404 1939
+[03/Sep/2016 07:04:23] "GET /admin/ HTTP/1.1" 302 0
+[03/Sep/2016 07:04:23] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 1653
+[03/Sep/2016 07:04:23] "GET /static/admin/css/login.css HTTP/1.1" 304 0
+[03/Sep/2016 07:04:23] "GET /static/admin/css/base.css HTTP/1.1" 304 0
+[03/Sep/2016 07:04:23] "GET /static/admin/css/fonts.css HTTP/1.1" 304 0
+[03/Sep/2016 07:04:23] "GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 304 0
+[03/Sep/2016 07:04:23] "GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 304 0
+[03/Sep/2016 07:04:28] "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[03/Sep/2016 07:04:28] "GET /admin/ HTTP/1.1" 200 2780
+[03/Sep/2016 07:04:28] "GET /static/admin/css/dashboard.css HTTP/1.1" 200 434
+[03/Sep/2016 07:04:28] "GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 82564
+[03/Sep/2016 07:04:28] "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+[03/Sep/2016 07:04:28] "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+^D
+^C(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py runserver
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 03, 2016 - 07:07:54
+Django version 1.10, using settings 'pystagram.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+[03/Sep/2016 07:07:54] "GET /admin/ HTTP/1.1" 200 3412
+[03/Sep/2016 07:07:55] "GET /static/admin/css/base.css HTTP/1.1" 304 0
+[03/Sep/2016 07:07:55] "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+[03/Sep/2016 07:07:55] "GET /static/admin/css/fonts.css HTTP/1.1" 304 0
+[03/Sep/2016 07:07:55] "GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 304 0
+[03/Sep/2016 07:07:55] "GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 304 0
+[03/Sep/2016 07:07:55] "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+[03/Sep/2016 07:07:55] "GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 304 0
+[03/Sep/2016 07:07:55] "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+[03/Sep/2016 07:07:59] "GET /admin/photos/post/ HTTP/1.1" 200 4162
+[03/Sep/2016 07:07:59] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:07:59] "GET /static/admin/css/changelists.css HTTP/1.1" 200 6117
+[03/Sep/2016 07:07:59] "GET /static/admin/js/core.js HTTP/1.1" 200 7976
+[03/Sep/2016 07:07:59] "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 6577
+[03/Sep/2016 07:07:59] "GET /static/admin/js/actions.js HTTP/1.1" 200 6501
+[03/Sep/2016 07:07:59] "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 363
+[03/Sep/2016 07:07:59] "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1538
+[03/Sep/2016 07:07:59] "GET /static/admin/js/urlify.js HTTP/1.1" 200 8186
+[03/Sep/2016 07:07:59] "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 128820
+[03/Sep/2016 07:07:59] "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 258648
+[03/Sep/2016 07:07:59] "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+[03/Sep/2016 07:08:02] "GET /admin/ HTTP/1.1" 200 3412
+[03/Sep/2016 07:08:28] "GET /admin/photos/post/add/ HTTP/1.1" 200 3841
+[03/Sep/2016 07:08:28] "GET /static/admin/js/change_form.js HTTP/1.1" 200 698
+[03/Sep/2016 07:08:28] "GET /static/admin/css/forms.css HTTP/1.1" 200 7750
+[03/Sep/2016 07:08:28] "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 495
+[03/Sep/2016 07:08:28] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:08:28] "GET /static/admin/css/widgets.css HTTP/1.1" 200 10340
+[03/Sep/2016 07:08:51] "POST /admin/photos/post/add/ HTTP/1.1" 302 0
+[03/Sep/2016 07:08:51] "GET /admin/photos/post/add/ HTTP/1.1" 200 4054
+[03/Sep/2016 07:08:51] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:08:52] "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+[03/Sep/2016 07:08:55] "POST /admin/photos/post/add/ HTTP/1.1" 302 0
+[03/Sep/2016 07:08:55] "GET /admin/photos/post/add/ HTTP/1.1" 200 4054
+[03/Sep/2016 07:08:55] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:09:01] "POST /admin/photos/post/add/ HTTP/1.1" 302 0
+[03/Sep/2016 07:09:01] "GET /admin/photos/post/add/ HTTP/1.1" 200 4054
+[03/Sep/2016 07:09:01] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:09:15] "POST /admin/photos/post/add/ HTTP/1.1" 302 0
+[03/Sep/2016 07:09:15] "GET /admin/photos/post/add/ HTTP/1.1" 200 4054
+[03/Sep/2016 07:09:15] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:09:18] "POST /admin/photos/post/add/ HTTP/1.1" 200 3984
+[03/Sep/2016 07:09:18] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:09:23] "GET /admin/photos/post/add/ HTTP/1.1" 200 3841
+[03/Sep/2016 07:09:26] "GET /admin/photos/post/ HTTP/1.1" 200 5059
+[03/Sep/2016 07:09:26] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:09:32] "GET /admin/ HTTP/1.1" 200 4589
+[03/Sep/2016 07:09:33] "GET /admin/photos/post/add/ HTTP/1.1" 200 3841
+[03/Sep/2016 07:09:33] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:09:39] "POST /admin/photos/post/add/ HTTP/1.1" 302 0
+[03/Sep/2016 07:09:39] "GET /admin/photos/post/add/ HTTP/1.1" 200 4054
+[03/Sep/2016 07:09:39] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:09:41] "GET /admin/ HTTP/1.1" 200 4875
+[03/Sep/2016 07:09:43] "GET /admin/photos/post/ HTTP/1.1" 200 5283
+[03/Sep/2016 07:09:43] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:09:44] "GET /admin/photos/post/6/change/ HTTP/1.1" 200 4098
+[03/Sep/2016 07:09:44] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:09:46] "GET /admin/photos/post/ HTTP/1.1" 200 5283
+[03/Sep/2016 07:09:47] "GET /admin/photos/post/3/change/ HTTP/1.1" 200 4079
+[03/Sep/2016 07:09:47] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:09:49] "GET /admin/photos/post/ HTTP/1.1" 200 5283
+[03/Sep/2016 07:10:02] "GET /admin/photos/ HTTP/1.1" 200 2201
+[03/Sep/2016 07:10:03] "GET /admin/ HTTP/1.1" 200 4875
+[03/Sep/2016 07:10:05] "GET /admin/photos/post/ HTTP/1.1" 200 5283
+[03/Sep/2016 07:10:05] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:10:07] "GET /admin/photos/post/add/ HTTP/1.1" 200 3841
+[03/Sep/2016 07:10:07] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 07:10:11] "GET /admin/photos/post/ HTTP/1.1" 200 5283
+ .exit
+
+^D
+^C(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ python manage.py shell
+Python 3.5.2 (default, Aug 16 2016, 05:35:50) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> 
+>>> from photos.models import Post
+>>> qs = Post.objects.all()
+>>> 
+
+
+
+
+
+
+
+>>> 
+>>> qs
+<QuerySet [<Post: Post object>, <Post: Post object>, <Post: Post object>, <Post: Post object>, <Post: Post object>, <Post: Post object>]>
+>>> qs2 = qs.filter(id__in=[1,2,3])
+>>> q2
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'q2' is not defined
+>>> qs2
+<QuerySet [<Post: Post object>, <Post: Post object>, <Post: Post object>]>
+>>> qs3 = qs2.filter(content__contains='안녕')
+>>> qs3
+<QuerySet [<Post: Post object>]>
+>>> qs = Post.objects.all()
+>>> print(qs.query)
+SELECT "photos_post"."id", "photos_post"."content", "photos_post"."created_at", "photos_post"."updated_at" FROM "photos_post"
+>>> qs = qs.filter(id__in=[1,2,3])
+>>> print(qs.query)
+SELECT "photos_post"."id", "photos_post"."content", "photos_post"."created_at", "photos_post"."updated_at" FROM "photos_post" WHERE "photos_post"."id" IN (1, 2, 3)
+>>> print(qs.count())
+3
+>>> print(qs.query)
+SELECT "photos_post"."id", "photos_post"."content", "photos_post"."created_at", "photos_post"."updated_at" FROM "photos_post" WHERE "photos_post"."id" IN (1, 2, 3)
+>>> Post.objects.filter(id__in=[1,2,3])
+<QuerySet [<Post: Post object>, <Post: Post object>, <Post: Post object>]>
+>>> Post.objects.earliest()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/query.py", line 545, in earliest
+    return self._earliest_or_latest(field_name=field_name, direction="")
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/query.py", line 534, in _earliest_or_latest
+    assert bool(order_by), "earliest() and latest() require either a "\
+AssertionError: earliest() and latest() require either a field_name parameter or 'get_latest_by' in the model
+>>> Post.objects.earliest()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/query.py", line 545, in earliest
+    return self._earliest_or_latest(field_name=field_name, direction="")
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/query.py", line 534, in _earliest_or_latest
+    assert bool(order_by), "earliest() and latest() require either a "\
+AssertionError: earliest() and latest() require either a field_name parameter or 'get_latest_by' in the model
+>>> Post.objects.get_latest_by('pk').earliest()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Manager' object has no attribute 'get_latest_by'
+>>> 
+>>> p1 = Post.objects.first()
+>>> p1
+<Post: Post object>
+>>> p1.id
+1
+>>> p1.pk
+1
+>>> p2=Post.objects.get(pk=3)
+>>> p2=Post.objects.get(pk=2)
+>>> p2=Post.objects.get(pk=222)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/query.py", line 385, in get
+    self.model._meta.object_name
+photos.models.DoesNotExist: Post matching query does not exist.
+>>> Post.objects.count()
+6
+>>> Post.objects.filter(pk__in=[1,2,3,4]).count()
+4
+>>> Post.objects.exist(pk=1)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Manager' object has no attribute 'exist'
+>>> Post.objects.filter(pk=1).exist()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'QuerySet' object has no attribute 'exist'
+>>> Post.objects.filter(pk=1).exists()
+True
+>>> Post.objects.exists(pk=1)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+TypeError: exists() got an unexpected keyword argument 'pk'
+>>> Post.objects.filter(pk=1).exists()
+True
+>>> p2
+<Post: Post object>
+>>> p2.id
+2
+>>> p2.delete()
+(1, {'photos.Post': 1})
+>>> Post.objects.filter(pk=2).exists()
+False
+>>> Post.objects.filter(id__lte=3).delete()
+(2, {'photos.Post': 2})
+>>> Post.objects.filter(id__lte=3).exists()
+False
+>>> 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py makemigrations phthos
+Traceback (most recent call last):
+  File "./manage.py", line 22, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/core/management/__init__.py", line 367, in execute_from_command_line
+    utility.execute()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/core/management/__init__.py", line 341, in execute
+    django.setup()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/__init__.py", line 27, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/apps/registry.py", line 108, in populate
+    app_config.import_models(all_models)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/apps/config.py", line 199, in import_models
+    self.models_module = import_module(models_module_name)
+  File "/usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 986, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 969, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 958, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 673, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 665, in exec_module
+  File "<frozen importlib._bootstrap>", line 222, in _call_with_frames_removed
+  File "/Users/SungWook/sh/pystagram/photos/models.py", line 16, in <module>
+    class Comment(models.Model):
+  File "/Users/SungWook/sh/pystagram/photos/models.py", line 17, in Comment
+    post = models.Foreignkey(Post)
+AttributeError: module 'django.db.models' has no attribute 'Foreignkey'
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py makemigrations phthos
+Traceback (most recent call last):
+  File "./manage.py", line 22, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/core/management/__init__.py", line 367, in execute_from_command_line
+    utility.execute()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/core/management/__init__.py", line 341, in execute
+    django.setup()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/__init__.py", line 27, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/apps/registry.py", line 108, in populate
+    app_config.import_models(all_models)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/apps/config.py", line 199, in import_models
+    self.models_module = import_module(models_module_name)
+  File "/usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 986, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 969, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 958, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 673, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 665, in exec_module
+  File "<frozen importlib._bootstrap>", line 222, in _call_with_frames_removed
+  File "/Users/SungWook/sh/pystagram/photos/models.py", line 16, in <module>
+    class Comment(models.Model):
+  File "/Users/SungWook/sh/pystagram/photos/models.py", line 17, in Comment
+    post = models.Foreignkey(Post)
+AttributeError: module 'django.db.models' has no attribute 'Foreignkey'
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py makemigrations phthos
+App 'phthos' could not be found. Is it in INSTALLED_APPS?
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py makemigrations photos
+Migrations for 'photos':
+  photos/migrations/0003_comment.py:
+    - Create model Comment
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py migrate photos
+Operations to perform:
+  Apply all migrations: photos
+Running migrations:
+  Rendering model states... DONE
+  Applying photos.0003_comment... OK
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py shell
+Python 3.5.2 (default, Aug 16 2016, 05:35:50) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from photos.models import Post, Comment
+>>> p1 = Post.objects.first()
+>>> cmt1 = Comment()
+>>> cmt1.content = '아오하오아오아오...'
+>>> cmt1.save()
+Traceback (most recent call last):
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/sqlite3/base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+sqlite3.IntegrityError: NOT NULL constraint failed: photos_comment.post_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/base.py", line 796, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/base.py", line 824, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/base.py", line 908, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/base.py", line 947, in _do_insert
+    using=using, raw=raw)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/query.py", line 1043, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/sql/compiler.py", line 1054, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/utils.py", line 94, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/sqlite3/base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+django.db.utils.IntegrityError: NOT NULL constraint failed: photos_comment.post_id
+>>> cmt1.post
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/fields/related_descriptors.py", line 189, in __get__
+    "%s has no %s." % (self.field.model.__name__, self.field.name)
+django.db.models.fields.related_descriptors.RelatedObjectDoesNotExist: Comment has no post.
+>>> cmt1.post = p1
+>>> cmt1.save()
+>>> cmt1
+<Comment: Comment object>
+>>> cmt1.post
+<Post: Post object>
+>>> cmt1.content
+'아오하오아오아오...'
+>>> cmt1.post.id
+4
+>>> cmt1.post.id
+4
+>>> p1
+<Post: Post object>
+>>> p1.id
+4
+>>> cmt2=Commnet()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'Commnet' is not defined
+>>> cmt2=Comment()
+>>> cmt2.content = "두번째댓글!
+  File "<console>", line 1
+    cmt2.content = "두번째댓글!
+                         ^
+SyntaxError: EOL while scanning string literal
+>>> cmt2.content = "두번째댓글!"
+>>> cmt2.post = p1
+>>> Comment.objects.filter(post=p1)
+<QuerySet [<Comment: Comment object>]>
+>>> cmt2.post
+<Post: Post object>
+>>> cme2.post.id
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'cme2' is not defined
+>>> cmt2.post.id
+4
+>>> cmt1.post.id
+4
+>>> cmt2.content
+'두번째댓글!'
+>>> Comment.objects.filter(post=p1)
+<QuerySet [<Comment: Comment object>]>
+>>> p1.comment_set.all()
+<QuerySet [<Comment: Comment object>]>
+>>> cmt2.post
+<Post: Post object>
+>>> cme1.post
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'cme1' is not defined
+>>> cmt1.post
+<Post: Post object>
+>>> cmt1.post.id
+4
+>>> cmt2.post.id
+4
+>>> Comment.objects.filter(post=p1)
+<QuerySet [<Comment: Comment object>]>
+>>> Comment.objects.filter(post=p2)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'p2' is not defined
+>>> Comment.objects.all()
+<QuerySet [<Comment: Comment object>]>
+>>> cmt1
+<Comment: Comment object>
+>>> cmt2
+<Comment: Comment object>
+>>> cmt1.content
+'아오하오아오아오...'
+>>> cmt2.content
+'두번째댓글!'
+>>> cmt1.post
+<Post: Post object>
+>>> cmt2.post
+<Post: Post object>
+>>> p1.comment_set
+<django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x109182630>
+>>> Comment.objects.all()
+<QuerySet [<Comment: Comment object>]>
+>>> cmt2 = Comment()
+>>> cmt2
+<Comment: Comment object>
+>>> cmt2.content
+''
+>>> cmt2.post = p1
+>>> cmt2.post.id
+4
+>>> Comment.objects.all()
+<QuerySet [<Comment: Comment object>]>
+>>> cmt2.save()
+>>> Comment.objects.all()
+<QuerySet [<Comment: Comment object>, <Comment: Comment object>]>
+>>> p1.comment_set
+<django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x109052748>
+>>> p1.comment_set.all()
+<QuerySet [<Comment: Comment object>, <Comment: Comment object>]>
+>>> 
+>>> p1.comment_set.select_related().all()
+<QuerySet [<Comment: Comment object>, <Comment: Comment object>]>
+>>> qs1 = p1.comment_set.all()
+>>> qs2 = p1.comment_set.select_related().all()
+>>> print(qs1)
+<QuerySet [<Comment: Comment object>, <Comment: Comment object>]>
+>>> print(qs2)
+<QuerySet [<Comment: Comment object>, <Comment: Comment object>]>
+>>> print(qs1.query)
+SELECT "photos_comment"."id", "photos_comment"."post_id", "photos_comment"."content", "photos_comment"."created_at", "photos_comment"."updated_at" FROM "photos_comment" WHERE "photos_comment"."post_id" = 4
+>>> print(qs2.query)
+SELECT "photos_comment"."id", "photos_comment"."post_id", "photos_comment"."content", "photos_comment"."created_at", "photos_comment"."updated_at", "photos_post"."id", "photos_post"."content", "photos_post"."created_at", "photos_post"."updated_at" FROM "photos_comment" INNER JOIN "photos_post" ON ("photos_comment"."post_id" = "photos_post"."id") WHERE "photos_comment"."post_id" = 4
+>>> 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py makemigrations photos
+Traceback (most recent call last):
+  File "./manage.py", line 22, in <module>
+    execute_from_command_line(sys.argv)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/core/management/__init__.py", line 367, in execute_from_command_line
+    utility.execute()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/core/management/__init__.py", line 341, in execute
+    django.setup()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/__init__.py", line 27, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/apps/registry.py", line 108, in populate
+    app_config.import_models(all_models)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/apps/config.py", line 199, in import_models
+    self.models_module = import_module(models_module_name)
+  File "/usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 986, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 969, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 958, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 673, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 665, in exec_module
+  File "<frozen importlib._bootstrap>", line 222, in _call_with_frames_removed
+  File "/Users/SungWook/sh/pystagram/photos/models.py", line 6, in <module>
+    class Post(models.Model): #장고 모델은 클래스에서 모델클래스를 상속받으면 모델이됨
+  File "/Users/SungWook/sh/pystagram/photos/models.py", line 8, in Post
+    tags = models.ManyToManyFiled('Tag')
+AttributeError: module 'django.db.models' has no attribute 'ManyToManyFiled'
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py makemigrations photos
+Migrations for 'photos':
+  photos/migrations/0004_auto_20160903_0857.py:
+    - Create model Tag
+    - Add field tags to post
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py migrtae photos
+Unknown command: 'migrtae'
+Type 'manage.py help' for usage.
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py shell
+Python 3.5.2 (default, Aug 16 2016, 05:35:50) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from photos.models import Post, Tag
+>>> t1=Tag()
+>>> t1.name='python'
+>>> t1.save()
+Traceback (most recent call last):
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/sqlite3/base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+sqlite3.OperationalError: no such table: photos_tag
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/base.py", line 796, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/base.py", line 824, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/base.py", line 908, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/base.py", line 947, in _do_insert
+    using=using, raw=raw)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/query.py", line 1043, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/models/sql/compiler.py", line 1054, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/utils.py", line 94, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/db/backends/sqlite3/base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+django.db.utils.OperationalError: no such table: photos_tag
+>>> 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py makemigrations photos
+No changes detected in app 'photos'
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py migrate photos
+Operations to perform:
+  Apply all migrations: photos
+Running migrations:
+  Rendering model states... DONE
+  Applying photos.0004_auto_20160903_0857... OK
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ sqlite3 db.sqlite3
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+sqlite> table
+   ...> 
+   ...> 
+   ...> table.all
+   ...> all()
+   ...> ls
+   ...> .exit
+   ...> ^D
+Error: incomplete SQL: table
+
+
+table.all
+all()
+ls
+.exit
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py python shell
+Unknown command: 'python'
+Type 'manage.py help' for usage.
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py shel
+Unknown command: 'shel'
+Type 'manage.py help' for usage.
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py shell
+Python 3.5.2 (default, Aug 16 2016, 05:35:50) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> import photos.models from Post, Tag
+  File "<console>", line 1
+    import photos.models from Post, Tag
+                            ^
+SyntaxError: invalid syntax
+>>> import photos.model from Post, Tag
+  File "<console>", line 1
+    import photos.model from Post, Tag
+                           ^
+SyntaxError: invalid syntax
+>>> 
+>>> 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py makemigrations photos
+No changes detected in app 'photos'
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py migrate photos
+Operations to perform:
+  Apply all migrations: photos
+Running migrations:
+  No migrations to apply.
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py shell
+Python 3.5.2 (default, Aug 16 2016, 05:35:50) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> import photos.models from Post, Tag
+  File "<console>", line 1
+    import photos.models from Post, Tag
+                            ^
+SyntaxError: invalid syntax
+>>> from photos.models import Post, Tag
+>>> t1 = Tag()
+>>> t1.name = 'ddd'
+>>> t1.name
+'ddd'
+>>> t1.save()
+>>> admin.site.register(Post)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'admin' is not defined
+>>> 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py runserver
+Unhandled exception in thread started by <function check_errors.<locals>.wrapper at 0x101cd68c8>
+Traceback (most recent call last):
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 226, in wrapper
+    fn(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/core/management/commands/runserver.py", line 113, in inner_run
+    autoreload.raise_last_exception()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 249, in raise_last_exception
+    six.reraise(*_exception)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 226, in wrapper
+    fn(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/__init__.py", line 27, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/apps/registry.py", line 115, in populate
+    app_config.ready()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/contrib/admin/apps.py", line 23, in ready
+    self.module.autodiscover()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/contrib/admin/__init__.py", line 26, in autodiscover
+    autodiscover_modules('admin', register_to=site)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/module_loading.py", line 50, in autodiscover_modules
+    import_module('%s.%s' % (app_config.name, module_to_search))
+  File "/usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 986, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 969, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 958, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 673, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 665, in exec_module
+  File "<frozen importlib._bootstrap>", line 222, in _call_with_frames_removed
+  File "/Users/SungWook/sh/pystagram/photos/admin.py", line 7, in <module>
+    admin.site.register(Comment)
+NameError: name 'Comment' is not defined
+Unhandled exception in thread started by <function check_errors.<locals>.wrapper at 0x1049e08c8>
+Traceback (most recent call last):
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 226, in wrapper
+    fn(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/core/management/commands/runserver.py", line 113, in inner_run
+    autoreload.raise_last_exception()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 249, in raise_last_exception
+    six.reraise(*_exception)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 226, in wrapper
+    fn(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/__init__.py", line 27, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/apps/registry.py", line 115, in populate
+    app_config.ready()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/contrib/admin/apps.py", line 23, in ready
+    self.module.autodiscover()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/contrib/admin/__init__.py", line 26, in autodiscover
+    autodiscover_modules('admin', register_to=site)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/module_loading.py", line 50, in autodiscover_modules
+    import_module('%s.%s' % (app_config.name, module_to_search))
+  File "/usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 986, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 969, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 958, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 673, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 665, in exec_module
+  File "<frozen importlib._bootstrap>", line 222, in _call_with_frames_removed
+  File "/Users/SungWook/sh/pystagram/photos/admin.py", line 7, in <module>
+    admin.site.register(Comment)
+NameError: name 'Comment' is not defined
+
+Unhandled exception in thread started by <function check_errors.<locals>.wrapper at 0x10ebad950>
+Traceback (most recent call last):
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 226, in wrapper
+    fn(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/core/management/commands/runserver.py", line 113, in inner_run
+    autoreload.raise_last_exception()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 249, in raise_last_exception
+    six.reraise(*_exception)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 226, in wrapper
+    fn(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/__init__.py", line 27, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/apps/registry.py", line 115, in populate
+    app_config.ready()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/contrib/admin/apps.py", line 23, in ready
+    self.module.autodiscover()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/contrib/admin/__init__.py", line 26, in autodiscover
+    autodiscover_modules('admin', register_to=site)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/module_loading.py", line 50, in autodiscover_modules
+    import_module('%s.%s' % (app_config.name, module_to_search))
+  File "/usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 986, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 969, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 958, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 673, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 665, in exec_module
+  File "<frozen importlib._bootstrap>", line 222, in _call_with_frames_removed
+  File "/Users/SungWook/sh/pystagram/photos/admin.py", line 7, in <module>
+    admin.site.register(Comment)
+NameError: name 'Comment' is not defined
+Unhandled exception in thread started by <function check_errors.<locals>.wrapper at 0x103bc9950>
+Traceback (most recent call last):
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 226, in wrapper
+    fn(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/core/management/commands/runserver.py", line 113, in inner_run
+    autoreload.raise_last_exception()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 249, in raise_last_exception
+    six.reraise(*_exception)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 226, in wrapper
+    fn(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/__init__.py", line 27, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/apps/registry.py", line 115, in populate
+    app_config.ready()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/contrib/admin/apps.py", line 23, in ready
+    self.module.autodiscover()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/contrib/admin/__init__.py", line 26, in autodiscover
+    autodiscover_modules('admin', register_to=site)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/module_loading.py", line 50, in autodiscover_modules
+    import_module('%s.%s' % (app_config.name, module_to_search))
+  File "/usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 986, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 969, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 958, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 673, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 665, in exec_module
+  File "<frozen importlib._bootstrap>", line 222, in _call_with_frames_removed
+  File "/Users/SungWook/sh/pystagram/photos/admin.py", line 7, in <module>
+    admin.site.register(Comment)
+NameError: name 'Comment' is not defined
+^C(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py runserver
+Unhandled exception in thread started by <function check_errors.<locals>.wrapper at 0x107efa950>
+Traceback (most recent call last):
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 226, in wrapper
+    fn(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/core/management/commands/runserver.py", line 113, in inner_run
+    autoreload.raise_last_exception()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 249, in raise_last_exception
+    six.reraise(*_exception)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/autoreload.py", line 226, in wrapper
+    fn(*args, **kwargs)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/__init__.py", line 27, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/apps/registry.py", line 115, in populate
+    app_config.ready()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/contrib/admin/apps.py", line 23, in ready
+    self.module.autodiscover()
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/contrib/admin/__init__.py", line 26, in autodiscover
+    autodiscover_modules('admin', register_to=site)
+  File "/Users/SungWook/sh/hwenv/lib/python3.5/site-packages/django/utils/module_loading.py", line 50, in autodiscover_modules
+    import_module('%s.%s' % (app_config.name, module_to_search))
+  File "/usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 986, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 969, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 958, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 673, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 665, in exec_module
+  File "<frozen importlib._bootstrap>", line 222, in _call_with_frames_removed
+  File "/Users/SungWook/sh/pystagram/photos/admin.py", line 7, in <module>
+    admin.site.register(Comment)
+NameError: name 'Comment' is not defined
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 03, 2016 - 09:23:37
+Django version 1.10, using settings 'pystagram.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+[03/Sep/2016 09:23:42] "GET /admin/ HTTP/1.1" 200 5661
+[03/Sep/2016 09:23:44] "GET /admin/photos/tag/ HTTP/1.1" 200 4151
+[03/Sep/2016 09:23:45] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 09:23:48] "GET /admin/ HTTP/1.1" 200 5661
+[03/Sep/2016 09:23:49] "GET /admin/photos/post/ HTTP/1.1" 200 4617
+[03/Sep/2016 09:23:49] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 03, 2016 - 09:24:19
+Django version 1.10, using settings 'pystagram.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+[03/Sep/2016 09:24:21] "GET /admin/ HTTP/1.1" 200 5661
+[03/Sep/2016 09:24:23] "GET /admin/photos/post/ HTTP/1.1" 200 4617
+[03/Sep/2016 09:24:23] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 09:24:26] "GET /admin/ HTTP/1.1" 200 5661
+[03/Sep/2016 09:24:27] "GET /admin/photos/tag/ HTTP/1.1" 200 4157
+[03/Sep/2016 09:24:27] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 09:24:29] "GET /admin/ HTTP/1.1" 200 5661
+^C(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py shell
+Python 3.5.2 (default, Aug 16 2016, 05:35:50) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from photos.models import Post
+>>> Post.objects.all()
+<QuerySet [<Post: 글 번호: 4>, <Post: 글 번호: 5>, <Post: 글 번호: 6>]>
+>>> Post.objects.all().order_by('-created_at')
+<QuerySet [<Post: 글 번호: 6>, <Post: 글 번호: 5>, <Post: 글 번호: 4>]>
+>>> 
+KeyboardInterrupt
+>>> 
+>>> 
+(hwenv) ShinSungWookui-MacBook-Pro:pystagram SungWook$ ./manage.py runserver
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 03, 2016 - 09:27:30
+Django version 1.10, using settings 'pystagram.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+[03/Sep/2016 09:27:32] "GET /admin/photos/post/ HTTP/1.1" 200 4617
+[03/Sep/2016 09:27:32] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 03, 2016 - 09:27:41
+Django version 1.10, using settings 'pystagram.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+[03/Sep/2016 09:27:43] "GET /admin/photos/post/ HTTP/1.1" 200 4617
+[03/Sep/2016 09:27:43] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 03, 2016 - 09:27:51
+Django version 1.10, using settings 'pystagram.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+[03/Sep/2016 09:27:54] "GET /admin/photos/post/ HTTP/1.1" 200 4617
+[03/Sep/2016 09:27:54] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 03, 2016 - 09:28:10
+Django version 1.10, using settings 'pystagram.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+[03/Sep/2016 09:28:29] "GET /admin/photos/post/6/change/ HTTP/1.1" 200 5095
+[03/Sep/2016 09:28:29] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 09:28:36] "GET /admin/photos/post/ HTTP/1.1" 200 4617
+[03/Sep/2016 09:28:37] "GET /admin/photos/post/5/change/ HTTP/1.1" 200 5091
+[03/Sep/2016 09:28:37] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 09:28:39] "GET /admin/photos/post/ HTTP/1.1" 200 4617
+[03/Sep/2016 09:28:40] "GET /admin/photos/post/4/change/ HTTP/1.1" 200 5084
+[03/Sep/2016 09:28:40] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 09:28:43] "GET /admin/photos/tag/add/?_to_field=id&_popup=1 HTTP/1.1" 200 2846
+[03/Sep/2016 09:28:43] "GET /admin/jsi18n/ HTTP/1.1" 200 3189
+[03/Sep/2016 09:28:48] "GET /admin/photos/post/ HTTP/1.1" 200 4617
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 03, 2016 - 09:39:15
+Django version 1.10, using settings 'pystagram.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
