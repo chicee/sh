@@ -8,7 +8,8 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 
 from .models import Post
-
+from .forms import PostSimpleForm
+from .forms import PostForm
 # Create your views here.
 
 def hello_world(request):
@@ -44,17 +45,22 @@ def view_post(request, pk):
 
 
 def create_post(request):
-    ctx = {}
     if request.method == 'POST':
-        form = request.POST
-        content = form['content']
-        post = Post()
-        post.content = content
-        post.save()
+        form = PostForm(request.POST)
 
-#방법 1
-        #url = reverse('photos:view_post', kwargs={'pk':post.pk})
-        #return redirect(url)
-#방법 2 - 추천
-        return redirect('photos:view_post', pk=post.pk)
+        if form.is_valid():
+            #post = Post()
+            #post.content = form.cleaned_data['content']
+            #post.save()
+            post = form.save() # 위 세줄을 한줄로 줄임
+
+            return redirect('photos:view_post', pk=post.pk)
+
+    elif request.method == 'GET':
+        form = PostForm()
+
+    ctx = {
+        'form': form,
+    }
+
     return render(request, 'edit.html', ctx)
