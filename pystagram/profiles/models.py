@@ -11,3 +11,5 @@ class Profile(models.Model):
     #user = models.OneToOneField(user_model_class)
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
     gender = models.CharField(max_length = 1)
+
+revert tests
