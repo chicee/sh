@@ -21,7 +21,7 @@ class Post(models.Model): #장고 모델은 클래스에서 모델클래스를 �
         ordering = ('-created_at', '-pk',) #작성된 시간 역순, pk역순 (-)
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post)
+    post = models.ForeignKey('Post')
     content = models.TextField(max_length = 500)
     created_at = models.DateTimeField(auto_now_add = True) # 처음으로 추가될 때 자동으로 시간 넣어줌
     updated_at = models.DateTimeField(auto_now = True)
