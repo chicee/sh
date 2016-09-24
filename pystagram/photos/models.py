@@ -1,7 +1,9 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class Post(models.Model): #장고 모델은 클래스에서 모델클래스를 상속받으면 모델이됨
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     content = models.TextField(max_length = 500) # 255자 넘는 경우 TextField 씀
     tags = models.ManyToManyField('Tag', blank = True)
     # 게시물에 tag를 다는거니깐! Many to many는 그냥 생각흐름대로.
@@ -21,6 +23,7 @@ class Post(models.Model): #장고 모델은 클래스에서 모델클래스를 �
         ordering = ('-created_at', '-pk',) #작성된 시간 역순, pk역순 (-)
 
 class Comment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     post = models.ForeignKey('Post')
     content = models.TextField(max_length = 500)
     created_at = models.DateTimeField(auto_now_add = True) # 처음으로 추가될 때 자동으로 시간 넣어줌
