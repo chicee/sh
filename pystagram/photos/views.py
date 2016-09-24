@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 
 from .models import Post
 from .forms import PostSimpleForm
@@ -43,8 +44,9 @@ def view_post(request, pk):
     ctx = {}
     return render(request, 'view.html', ctx)
 
-
+@login_required
 def create_post(request):
+
     if request.method == 'POST':
         form = PostForm(request.POST)
 
@@ -52,8 +54,10 @@ def create_post(request):
             #post = Post()
             #post.content = form.cleaned_data['content']
             #post.save()
-            post = form.save() # 위 세줄을 한줄로 줄임
-
+            post = form.save(commit = False) # 위 세줄을 한줄로 줄임
+            post.user = request.user
+            post.save()
+            
             return redirect('photos:view_post', pk=post.pk)
 
     elif request.method == 'GET':
