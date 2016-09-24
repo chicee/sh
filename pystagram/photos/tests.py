@@ -1,8 +1,11 @@
 from django.test import TestCase
+from django.test import Client
 from django.db import transaction
 from django.db.utils import IntegrityError
 from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse
 
+from .forms import PostForm
 from .models import Post
 # Create your tests here.
 
@@ -12,6 +15,8 @@ class PostTest(TestCase):
     def setUp(self):
         self.user = user_model_class()
         self.user.username = 'hello1'
+        self.user.set_password('12341234')
+
         self.user.save()
 
     def test_add_op(self):
@@ -28,3 +33,19 @@ class PostTest(TestCase):
         post.user = user
         post.save()
         self.assertIsNotNone(post.pk)
+
+    def test_create_post_view(self):
+        c = Client()
+
+        #url = '/photos/create/'
+        url = reverse('photos:create')
+        
+        res = c.get(url)
+        self.assertEqual(res.status_code, 302)
+
+        c.login(username = 'hello1', password = '12341234')
+        res = c.get(url)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.resolver_match.func.__name__,'create_post')
+        self.assertIn('form', res.context)
+        self.assertIsInstance(res.context['form'], PostForm)
